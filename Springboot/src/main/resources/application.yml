@@ -1,0 +1,19 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/library_management?serverTimezone=GMT%2b8 #北京时间
+    username: root
+    password: 2020191228
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #匹配xml文件，告诉springxml文件位置
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印SQL日志
+
+
+
+
+

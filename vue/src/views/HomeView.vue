@@ -18,12 +18,14 @@
       <el-table-column prop="sex" label="性别"></el-table-column>
     </el-table>
 
+    <!--分页-->
     <div style="margin-top: 20px">
       <el-pagination
           background
-          :page-size="5"
+          :current-page="params.pageNum"
+          :page-size="params.pageSize"
           layout="prev, pager, next"
-          :total="100">
+          :total="total">
       </el-pagination>
     </div>
 
@@ -35,17 +37,45 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 
+import request from "@/utils/request";
+
 export default {
   name: 'HomeView',
-    data(){
-      return{
-        tableData:[
-          {name:'王楚钦',age:23,address:'北京市',phone: '131',sex:'男'},
-          {name:'王楚钦',age:23,address:'北京市',phone: '136623412',sex:'男'},
-          {name:'王楚钦',age:23,address:'北京市',phone: '136623412',sex:'男'},
-          {name:'王楚钦',age:23,address:'北京市',phone: '136623412',sex:'男'},
-        ]
+  data(){
+    return{
+      tableData:[],
+      total:0,
+      params:{
+        pageNum:1,
+        pageSize:10,
+        name:'',
+        phone:'',
       }
     }
+  },
+  created() {
+    this.load();//调用load方法，完成数据的渲染
+  },
+  methods:{
+    load(){
+      // fetch('http://localhost:9090/user/list')
+      //     .then(res => res.json()).then(res=>{
+      //       console.log(res)
+      //       this.tableData=res
+      //     })
+
+      //get-post-fetch-delete
+      request.get('/user/page',{
+        params:this.params
+      }).then(res=>{
+
+        if(res.code==="200"){
+          this.tableData=res.data.list
+          this.total=res.data.total
+        }
+      })
+    }
+  }
+
 }
 </script>
