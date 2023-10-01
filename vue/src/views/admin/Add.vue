@@ -1,32 +1,19 @@
 <template>
   <div style="width:500px">
     <div style="margin-left: 10px">
-      <h3 style="padding-left:20px; margin-bottom: 30px">新增用户</h3>
+      <h3 style="padding-left:20px; margin-bottom: 30px">新增管理员</h3>
       <div>
         <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="100px">
-          <el-form-item label="姓名" prop="name">
-            <el-input v-model="form.name" placeholder="请输入姓名" style="width: 200px;margin-left: 10px"></el-input>
-          </el-form-item>
-          <el-form-item label="年龄" prop="age">
-            <el-input v-model="form.age" placeholder="请输入年龄" style="width: 200px;margin-left: 10px"></el-input>
+          <el-form-item label="管理员" prop="username">
+            <el-input v-model="form.username" placeholder="请输入管理员名" style="width: 200px;margin-left: 10px"></el-input>
           </el-form-item>
 
-          <el-form-item label="性别">
-            <el-select v-model="form.sex" placeholder="请选择性别" style="width: 200px;margin-left: 10px">
-              <el-option
-                  v-for="item in sexoption"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
 
           <el-form-item label="联系方式" prop="phone">
-            <el-input v-model="form.phone" placeholder="请输入电话" style="width: 200px;margin-left: 10px"></el-input>
+            <el-input v-model="form.phone" placeholder="请输入联系方式" style="width: 200px;margin-left: 10px"></el-input>
           </el-form-item>
-          <el-form-item label="地址">
-            <el-input v-model="form.address" placeholder="请输入地址" style="width: 200px;margin-left: 10px"></el-input>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="form.email" placeholder="请输入邮箱" style="width: 200px;margin-left: 10px"></el-input>
           </el-form-item>
 
         </el-form>
@@ -46,7 +33,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: 'AddUser',
+  name: 'AddAdmin',
   data() {
 
     const checkPhone= (rule, value, callback) => {
@@ -56,12 +43,6 @@ export default {
       callback()
     };
 
-    const checkAge= (rule, value, callback) => {
-      if (!/^[0-9]+$/.test(value)) {
-        callback(new Error('请输入数字值'));
-      }
-      callback()
-    };
 
     return {
       form: {},
@@ -73,15 +54,12 @@ export default {
         label: '女'
       }],
       rules: {
-        name: [
-          {required: true, message: '请输入姓名', trigger: 'blur'},
+        username: [
+          {required: true, message: '请输入管理员姓名', trigger: 'blur'},
         ],
         phone: [
           {validator: checkPhone, trigger: 'blur'}
         ],
-        age:[
-          {validator: checkAge, trigger: 'blur'}
-        ]
       }
 
     }
@@ -90,7 +68,7 @@ export default {
     save() {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
-          request.post('/user/save', this.form).then(res => {
+          request.post('/admin/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功');
               this.form={}

@@ -1,5 +1,8 @@
 package com.example.springboot.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import com.example.springboot.controller.request.BaseRequest;
 import com.example.springboot.controller.request.UserPageRequest;
 import com.example.springboot.entity.User;
 import com.example.springboot.mapper.UserMapper;
@@ -10,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,11 +30,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Object page(UserPageRequest userPageRequest) {
-        List<User> users = userMapper.listByCondition(userPageRequest);
+    public PageInfo<User> page(BaseRequest baseRequest) {
+        List<User> users = userMapper.listByCondition(baseRequest);
 
-        int page=userPageRequest.getPageNum();
-        int pageSize=userPageRequest.getPageSize();
+        int page=baseRequest.getPageNum();
+        int pageSize=baseRequest.getPageSize();
 
         int total=users.size();
         List<User>collect=users
@@ -50,5 +54,30 @@ public class UserService implements IUserService {
         PageHelper.clearPage();
         return PageInfo;
 
+    }
+
+    @Override
+    public void save(User user) {
+        //username是卡号哈
+        Date date=new Date();
+        user.setUsername(DateUtil.format(date,"yyMMdd")
+                +Math.abs(IdUtil.fastSimpleUUID().hashCode()&Integer.MAX_VALUE)%100000);
+        userMapper.save(user);
+    }
+
+    @Override
+    public User getById(Integer id) {
+        return userMapper.getById(id);
+    }
+
+    @Override
+    public void update(User user) {
+        user.setUpdatetime(new Date());
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        userMapper.deleteById(id);
     }
 }

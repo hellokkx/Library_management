@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from "@/router";
 
 
 const request=axios.create({
@@ -11,6 +12,8 @@ const request=axios.create({
 request.interceptors.request.use(
     config=>{
         config.headers['Content-Type']='application/json;charset=utf-8';
+
+        // router.push('/login')
         //config.headers['token']=user.token;
         return config
     },
