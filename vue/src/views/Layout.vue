@@ -11,7 +11,7 @@
       <div style="flex: 1;text-align: right;margin-right: 20px">
         <el-dropdown size="medium">
           <span class="el-dropdown-link" style="cursor: pointer">
-            管理员
+            {{ admin.username }}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" style="margin-top:-5px;">
@@ -21,6 +21,8 @@
               </div>
             </el-dropdown-item>
           </el-dropdown-menu>
+
+
         </el-dropdown>
 
 
@@ -72,12 +74,21 @@
 </template>
 
 <script>
+
+import Cookies from 'js-cookie';
+
 export default {
   name: "Layout",
+  data(){
+    return{
+      admin:Cookies.get('admin') ? JSON.parse(Cookies.get('admin')):{}
+    }
+  },
   methods:{
     logout(){
-      this.$router.push('/login')
       //清除浏览器用户数据
+      Cookies.remove('admin')
+      this.$router.push('/login')
     }
   }
 }

@@ -1,5 +1,21 @@
 <template>
-  <div style="height: 100vh;overflow: hidden">
+
+  <div style="height: 100vh;overflow: hidden;position: relative">
+
+    <el-card class="cover" v-if="loginAdmin.id">
+      <slide-verify :l="42"
+                    :r="10"
+                    :w="310"
+                    :h="155"
+                    :accuracy="6"
+                    slider-text="向右滑动"
+                    @success="onSuccess"
+                    @fail="onFail"
+                    @refresh="onRefresh"
+      ></slide-verify>
+    </el-card>
+
+
     <div style="width: 500px;height: 400px;background-color:white;
     border-radius:10px;margin:150px auto;padding: 40px 60px">
       <div style="margin: 30px;text-align: center;
@@ -34,6 +50,7 @@ export default {
   data(){
     return{
       admin:{},
+      loginAdmin:{},
       rules: {
         username: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -52,11 +69,7 @@ export default {
         if(valid){
           request.post('/admin/login',this.admin).then(res =>{
             if(res.code==='200'){
-              this.$notify.success("登录成功")
-              this.$router.push('/')
-              if(res.data!==null){
-                Cookies.set('user',JSON.stringify(res.data))
-              }
+              this.loginAdmin=res.data
             }
             else{
               this.$notify.error(res.msg)
@@ -64,12 +77,33 @@ export default {
           })
         }
       })
-
+    },
+    //-------------------滑块--------------------
+    onSuccess(){
+      this.$notify.success("登录成功")
+      if(this.loginAdmin!==null){
+        Cookies.set('admin',JSON.stringify(this.loginAdmin))
+      }
+      this.$router.push('/')
+    },
+    onFail(){
+      this.msg = ''
+    },
+    onRefresh(){
+      console.log('refresh')
     }
   }
 }
 </script>
 
 <style scoped>
-
+  .cover{
+    width: fit-content;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1000;
+  }
 </style>

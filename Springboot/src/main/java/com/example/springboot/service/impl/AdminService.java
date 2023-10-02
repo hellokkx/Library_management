@@ -1,8 +1,11 @@
 package com.example.springboot.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.BaseRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.PasswordRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.mapper.AdminMapper;
@@ -25,6 +28,9 @@ public class AdminService implements IAdminService {
 
     @Autowired
     AdminMapper adminMapper;
+
+    private static final String DEFAULT_PASS="123456";
+    private static final String PASS_SALT="lkx";
 
     @Override
     public List<Admin> list() {
@@ -60,7 +66,12 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        Date date = new Date();
+        //默认密码
+        if(StrUtil.isBlank(obj.getPassword())){
+            obj.setPassword(DEFAULT_PASS);
+        }
+        //设置md5加密-加盐
+        obj.setPassword(securePass(obj.getPassword()));
         adminMapper.save(obj);
     }
 
@@ -82,12 +93,26 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request) {
-        Admin admin = adminMapper.getByUsernameAndPassword(request);
+        request.setPassword(securePass(request.getPassword()));
+        Admin admin = adminMapper.getByUsernameAndPassword(request.getUsername(),request.getPassword());
         if(admin==null){
             throw new ServiceException("用户名或密码错误");
         }
         LoginDTO loginDTO = new LoginDTO();
         BeanUtils.copyProperties(admin, loginDTO);
         return loginDTO;
+    }
+
+    @Override
+    public void changePass(PasswordRequest request) {
+        request.setNewPass(securePass(request.getNewPass()));
+        int count=adminMapper.updatePassword(request);
+        if(count<=0){
+            throw new ServiceException("修改密码失败");
+        }
+    }
+
+    public String securePass(String password){
+        return SecureUtil.md5(password+PASS_SALT);
     }
 }

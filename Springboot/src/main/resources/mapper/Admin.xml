@@ -5,13 +5,18 @@
 <mapper namespace="com.example.springboot.mapper.AdminMapper">
 
     <insert id="save">
-        insert into admin(username,phone,email)
-        values(#{username},#{phone},#{email})
+        insert into admin(username,phone,email,password)
+        values(#{username},#{phone},#{email},#{password})
     </insert>
 
     <update id="updateById">
         update admin set username= #{username}, phone=#{phone},email=#{email},updatetime=#{updatetime}
         where id=#{id}
+    </update>
+
+    <update id="updatePassword">
+        update admin set password=#{newPass}
+        where username=#{username} and password=#{password}
     </update>
 
     <delete id="deleteById">

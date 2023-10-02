@@ -12,7 +12,7 @@ public class Admin {
     private String username;
     private String phone;
     private String email;
-    private String paddword;
+    private String password;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createtime;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")

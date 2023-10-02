@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from "@/router";
-
+import Cookies from "js-cookie";
 
 const request=axios.create({
     baseURL:'http://localhost:9090', //后台地址
@@ -12,8 +12,12 @@ const request=axios.create({
 request.interceptors.request.use(
     config=>{
         config.headers['Content-Type']='application/json;charset=utf-8';
+        // const admin=Cookies.get('admin')
+        // console.log(admin)
+        // if(!admin){
+        //     router.push('/login')
+        // }
 
-        // router.push('/login')
         //config.headers['token']=user.token;
         return config
     },

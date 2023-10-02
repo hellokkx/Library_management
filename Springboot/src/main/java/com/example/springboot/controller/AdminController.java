@@ -1,10 +1,12 @@
 package com.example.springboot.controller;
 
 
+import cn.hutool.log.Log;
 import com.example.springboot.common.Result;
 import com.example.springboot.controller.dto.LoginDTO;
 import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.controller.request.LoginRequest;
+import com.example.springboot.controller.request.PasswordRequest;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,12 @@ public class AdminController {
     public Result login(@RequestBody LoginRequest request){
         LoginDTO login=adminService.login(request);
         return Result.success(login);
+    }
+
+    @PutMapping("/password")
+    public Result password(@RequestBody PasswordRequest obj){
+        adminService.changePass(obj);
+        return Result.success();
     }
 
     @PostMapping("/save")
