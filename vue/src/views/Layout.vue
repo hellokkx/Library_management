@@ -62,7 +62,29 @@
             <el-menu-item index="/adminList">管理员列表</el-menu-item>
           </el-submenu>
 
+          <!--          category-->
+          <el-submenu index="category">
+            <template slot="title">
+              <i class="el-icon-s-operation"></i>
+              <span>图书分类管理</span>
+            </template>
+            <el-menu-item index="/addCategory">图书分类添加</el-menu-item>
+            <el-menu-item index="/categoryList">图书分类列表</el-menu-item>
+          </el-submenu>
+
+          <!--          book-->
+          <el-submenu index="book">
+            <template slot="title">
+              <i class="el-icon-notebook-1"></i>
+              <span>图书管理</span>
+            </template>
+            <el-menu-item index="/addBook">图书添加</el-menu-item>
+            <el-menu-item index="/bookList">图书列表</el-menu-item>
+          </el-submenu>
+
         </el-menu>
+
+
       </div>
 
       <!--主体-->

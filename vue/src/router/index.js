@@ -22,44 +22,27 @@ const routes = [
     redirect:'/home',
     children:[
       //------------------------2_HOME-------------------------
-      {
-        path: 'home',
-        name: 'Home',
-        component: HomeView
-      },
+      {path: 'home', name: 'Home', component: HomeView},
       // ---------------------2_User-----------------------------
-      {
-        path: 'userList',
-        name: 'UserList',
-        component: () => import('@/views/user/User.vue')
-      },
-      {
-        path: 'addUser',
-        name: 'AddUser',
-        component: () => import('@/views/user/AddUser.vue')
-      },
-      {
-        path: 'editUser',
-        name: 'EditUser',
-        component: () => import('@/views/user/EditUser.vue')
-      },
+      {path: 'userList', name: 'UserList', component: () => import('@/views/user/User.vue')},
+      {path: 'addUser', name: 'AddUser', component: () => import('@/views/user/AddUser.vue')},
+      {path: 'editUser', name: 'EditUser', component: () => import('@/views/user/EditUser.vue')},
 
       // ---------------------2_Admin-----------------------------
-      {
-        path: 'adminList',
-        name: 'AdminList',
-        component: () => import('@/views/admin/List.vue')
-      },
-      {
-        path: 'addAdmin',
-        name: 'AddAdmin',
-        component: () => import('@/views/admin/Add.vue')
-      },
-      {
-        path: 'editAdmin',
-        name: 'EditAdmin',
-        component: () => import('@/views/admin/Edit.vue')
-      }
+      {path: 'adminList', name: 'AdminList', component: () => import('@/views/admin/List.vue')},
+      {path: 'addAdmin', name: 'AddAdmin', component: () => import('@/views/admin/Add.vue')},
+      {path: 'editAdmin', name: 'EditAdmin', component: () => import('@/views/admin/Edit.vue')},
+
+      // ---------------------2_Category-----------------------------
+      {path: 'categoryList', name: 'CategoryList', component: () => import('@/views/category/List.vue')},
+      {path: 'addCategory', name: 'AddCategory', component: () => import('@/views/category/Add.vue')},
+      {path: 'editCategory', name: 'EditCategory', component: () => import('@/views/category/Edit.vue')},
+
+      // ---------------------2_Book-----------------------------
+      {path: 'bookList', name: 'BookList', component: () => import('@/views/book/List.vue')},
+      {path: 'addBook', name: 'AddBook', component: () => import('@/views/book/Add.vue')},
+      {path: 'editBook', name: 'EditBook', component: () => import('@/views/book/Edit.vue')},
+
     ]
   },
   {

@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -66,13 +67,19 @@ public class AdminService implements IAdminService {
 
     @Override
     public void save(Admin obj) {
-        //默认密码
+        //默认密码123
         if(StrUtil.isBlank(obj.getPassword())){
             obj.setPassword(DEFAULT_PASS);
         }
         //设置md5加密-加盐
         obj.setPassword(securePass(obj.getPassword()));
-        adminMapper.save(obj);
+        try {
+            adminMapper.save(obj);
+        }
+        catch(DuplicateKeyException e){
+            log.error("数据插入失败,username:{}",obj.getUsername());
+            throw new ServiceException("username已存在");
+        }
     }
 
     @Override
