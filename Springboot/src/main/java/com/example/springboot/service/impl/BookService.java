@@ -82,6 +82,7 @@ public class BookService implements IBookService {
         bookMapper.deleteById(id);
     }
 
+
     private String category(List<String> categories){
         StringBuilder sb=new StringBuilder();
         if(CollUtil.isNotEmpty(categories)){

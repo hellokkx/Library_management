@@ -69,7 +69,7 @@ export default {
       total:0,
       params:{
         pageNum:1,
-        pageSize:10,
+        pageSize:8,
         name:'',
         phone:'',
       }
@@ -99,7 +99,7 @@ export default {
     reset(){  //重置
       this.params={
         pageNum:1,
-        pageSize:10,
+        pageSize: 8,
         name:'',
         phone:'',
       }

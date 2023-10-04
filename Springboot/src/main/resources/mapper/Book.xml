@@ -16,22 +16,23 @@
                 name like concat('%',#{name},'%')
             </if>
             <if test="bookno !=null and bookno!= ''">
-                and bookno = #{bookno}
+                and bookno like concat('%',#{bookno},'%')
             </if>
         </where>
         order by id desc
     </select>
 
     <insert id="save">
-        insert into book(name,description,publishdate,author,publisher,category,bookno,cover)
-        values(#{name},#{description},#{publishdate},#{author},#{publisher},#{category},#{bookno},#{cover})
+        insert into book(name,description,publishdate,author,nums,publisher,category,bookno,cover)
+        values(#{name},#{description},#{publishdate},#{author},#{nums},#{publisher},#{category},#{bookno},#{cover})
     </insert>
 
     <update id="updateById">
         update book set name=#{name}, description=#{description}, author=#{author},publishdate=#{publishdate},
-        publisher=#{publisher},category=#{category},bookno=#{bookno},cover=#{cover}
+        publisher=#{publisher},category=#{category},bookno=#{bookno},cover=#{cover},nums=#{nums}
         where id=#{id}
     </update>
+
 
     <delete id="deleteById">
         delete from book where id = #{id}
@@ -40,6 +41,10 @@
 
     <select id="getById" resultType="com.example.springboot.entity.Book">
         select * from book where id = #{id}
+    </select>
+
+    <select id="getByNo" resultType="com.example.springboot.entity.Book">
+        select * from book where bookno = #{bookno}
     </select>
 
 

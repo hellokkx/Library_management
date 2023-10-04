@@ -18,10 +18,12 @@ public class Book {
     private String category;
     private String bookno;
     private String cover;
+    private Integer nums;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createtime;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updatetime;
     private List<String>categories;
 }
+
 

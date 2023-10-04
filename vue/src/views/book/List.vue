@@ -21,6 +21,7 @@
       <el-table-column prop="category" label="分类"></el-table-column>
       <el-table-column prop="publisher" label="出版社"></el-table-column>
       <el-table-column prop="bookno" label="ISBN"></el-table-column>
+      <el-table-column prop="nums" label="剩余数量"></el-table-column>
       <el-table-column prop="cover" label="封面">
         <template v-slot="scope">
           <el-image :src="scope.row.cover" :preview-src-list="[scope.row.cover]"/>
@@ -75,8 +76,9 @@ export default {
       total: 0,
       params: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 5,
         name: '',
+        bookno:'',
       },
     }
   },
@@ -99,7 +101,7 @@ export default {
     reset() {  //重置
       this.params = {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 5,
         name: '',
         bookno: '',
         email: ''

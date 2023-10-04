@@ -1,11 +1,11 @@
 <template>
   <div>
     <!--头部区域-->
-    <div style="height: 60px;line-height: 60px;background-color:white;margin-bottom: 2px;display: flex">
+    <div style="height: 70px;line-height: 70px;background-color:white;margin-bottom: 2px;display: flex">
 
-      <div style="width: 300px">
-        <img src="@/assets/book.png" alt="" style="width: 40px;position: relative;top: 10px;left:20px">
-        <span style="margin-left: 30px; font-size: 24px">图书管理系统</span>
+      <div style="width: 500px">
+        <img src="@/assets/book.png" alt="" style="width: 40px;margin-left: 30px;position: relative;top: 10px;left:20px">
+        <span style="margin-left: 40px; font-size: 24px">图书管理系统</span>
       </div>
 
       <div style="flex: 1;text-align: right;margin-right: 20px">
@@ -80,6 +80,16 @@
             </template>
             <el-menu-item index="/addBook">图书添加</el-menu-item>
             <el-menu-item index="/bookList">图书列表</el-menu-item>
+          </el-submenu>
+
+          <!--          borrow-->
+          <el-submenu index="borrow">
+            <template slot="title">
+              <i class="el-icon-document"></i>
+              <span>借还管理</span>
+            </template>
+            <el-menu-item index="/addBorrow">借书添加</el-menu-item>
+            <el-menu-item index="/borrowList">还书处理</el-menu-item>
           </el-submenu>
 
         </el-menu>

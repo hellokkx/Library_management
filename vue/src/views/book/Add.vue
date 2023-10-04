@@ -44,8 +44,12 @@
             <el-input v-model="form.bookno" placeholder="请输入ISBN" style="width: 200px;margin-left: 10px"></el-input>
           </el-form-item>
 
-          <el-form-item label="封面" prop="cover" style="margin-top: 15px">
-            <el-input v-model="form.cover" placeholder="请输入封面" style="width: 200px;margin-left: 10px"></el-input>
+          <el-form-item label="图书数量" prop="nums" style="margin-top: 15px;margin-left: 10px">
+            <el-input-number v-model="form.nums" :min="1" :max="1000" label="图书数量" style="margin-left: 10px"></el-input-number>
+          </el-form-item>
+
+          <el-form-item label="封面" prop="cover" style="margin-top: 15px;margin-left: 60px">
+            <el-input v-model="form.cover" placeholder="请输入封面" style="width: 200px;"></el-input>
           </el-form-item>
 
         </el-form>
@@ -79,7 +83,13 @@ export default {
       }],
       rules: {
         name: [
-          {required: true, message: '请输入分类名称', trigger: 'blur'},
+          {required: true, message: '请输入名称', trigger: 'blur'},
+        ],
+        bookno: [
+          {required: true, message: '请输入ISBN', trigger: 'blur'},
+        ],
+        nums: [
+          {required: true, message: '请输入图书数量', trigger: 'blur'},
         ],
       }
 

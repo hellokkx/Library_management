@@ -88,7 +88,7 @@ export default {
       pid:null,
       params:{
         pageNum:1,
-        pageSize:10,
+        pageSize:3,
         name:'',
       },
       rules:{
@@ -116,7 +116,7 @@ export default {
     reset(){  //重置
       this.params={
         pageNum:1,
-        pageSize:10,
+        pageSize:3,
         username:'',
         phone:'',
         email:''

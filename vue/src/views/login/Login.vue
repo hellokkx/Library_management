@@ -1,6 +1,6 @@
 <template>
 
-  <div style="height: 100vh;overflow: hidden;position: relative">
+  <div class="c1" style="height: 100vh;overflow: hidden;position: relative">
 
     <el-card class="cover" v-if="loginAdmin.id">
       <slide-verify :l="42"
@@ -97,6 +97,10 @@ export default {
 </script>
 
 <style scoped>
+
+  .c1{
+    background: url("bgc.jpg");
+  }
   .cover{
     width: fit-content;
     background-color: white;

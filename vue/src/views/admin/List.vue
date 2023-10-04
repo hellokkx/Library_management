@@ -86,7 +86,7 @@ export default {
       dialogFormVisible:false,
       params:{
         pageNum:1,
-        pageSize:10,
+        pageSize:8,
         username:'',
         phone:'',
         email:''
@@ -143,7 +143,7 @@ export default {
     reset(){  //重置
       this.params={
         pageNum:1,
-        pageSize:10,
+        pageSize:8,
         username:'',
         phone:'',
         email:''
